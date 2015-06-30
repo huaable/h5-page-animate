@@ -1,0 +1,54 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+[data-pages] {
+	background-color: #000;
+	position: relative;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	zoom: 1;
+}
+
+[data-page] {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	display: none;
+	z-index: 1;
+
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+[data-animation] {
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+.page-height-auto {
+	min-height: 100%;
+	height: auto;
+}
+
+[data-page][data-page-height='auto'] {
+	position: relative;
+	height: 100%;
+}
+
+[data-page].h5-page-in,
+[data-page].current {
+	display: block;
+	z-index: 2;
+}

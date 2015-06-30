@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+
+    <link rel="stylesheet" href="animate.min.css"/>
+    <link rel="stylesheet" href="h5.css"/>
+</head>
+<body>
+<div data-pages="">
+    <div data-page="1">
+        <p data-animation="shake" data-count="3">textextextextextextextextextextextext</p>
+        03
+        <p data-animation="shake" data-count="3">textextextextextextextextextextextext</p>
+        03
+        <p data-animation="shake" data-count="3">textextextextextextextextextextextext</p>
+        03
+        <p data-animation="shake" data-count="3">textextextextextextextextextextextext</p>
+        03
+        <p data-animation="shake" data-count="3">textextextextextextextextextextextext</p>
+
+        <div class="alert-mask">
+            <p data-animation="slideInRight" data-delay="1000">弹出</p>
+
+            <p data-animation="slideInRight" data-delay="1100">弹出</p>
+
+            <p data-animation="slideInRight" data-delay="1200">弹出</p>
+
+            <p data-animation="slideInRight" data-delay="1300">弹出</p>
+
+            <p data-animation="slideInRight" data-delay="1400">弹出</p>
+
+            <p data-animation="slideInRight" data-delay="1500">弹出</p>
+
+            <p data-animation="slideInRight" data-delay="1600">弹出</p>
+
+            <p data-animation="slideInRight" data-delay="1700">弹出</p>
+
+            <p data-animation="slideInRight" data-delay="1800">弹出</p>
+        </div>
+    </div>
+    <div data-page="2">
+        <p data-animation="slideInLeft" data-delay="1000">textextextextextextextextextextextext</p>
+    </div>
+    <div data-page="3">
+        <p data-animation="bounceInDown" data-delay="1000">textextextextextextextextextextextext</p>
+
+    </div>
+    <div data-page="4" data-page-height='auto'>
+        <p>overflow:auto</p>
+
+        <p>overflow:auto</p>
+
+        <p>overflow:auto</p>
+
+        <p>overflow:auto</p>
+
+        <p>overflow:auto</p>
+
+        <p>overflow:auto</p>
+
+        <p>overflow:auto</p>
+
+        <p>overflow:auto</p>
+
+        <p>overflow:auto</p>
+
+
+    </div>
+    <div data-page="5">
+        <p>textextextextextextextextextextextext</p>
+
+    </div>
+    <div data-page="6">
+        <p>textextextextextextextextextextextext</p>
+
+    </div>
+    <div data-page="7">
+        <p>textextextextextextextextextextextext</p>
+
+    </div>
+</div>
+
+
+<script src="require/jquery-1.11.1.min.js"></script>
+<script src="h5.js"></script>
+<style>
+
+    [data-page="1"] {
+        background-color: red;
+    }
+
+    [data-page="2"] {
+        background-color: orange;
+    }
+
+    [data-page="3"] {
+        background-color: yellow;
+    }
+
+    [data-page="4"],
+    [data-page-current="4"] {
+        background-color: green;
+    }
+
+    [data-page="5"] {
+        background-color: blue;
+    }
+
+    [data-page="6"] {
+        background-color: greenyellow;
+    }
+
+    [data-page="7"] {
+        background-color: purple;
+    }
+
+    .alert-mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, .5);
+        color: #fff;
+    }
+
+    p {
+        margin: 0;
+        padding: 28px;
+    }
+</style>
+<script>
+    $(function () {
+
+        var i = 1;
+        var arr = [
+            ''
+            , ['fadeOut', 'fadeIn']
+            , ['slideOutLeft', 'slideInRight']
+            , ['slideOutUp', 'slideInUp']
+            , ['slideOutRight', 'slideInLeft']
+            , ['bounceOut', 'bounceIn']
+            , ['zoomOut', 'zoomIn']
+            , ['rotateOut', 'rotateIn']
+        ];
+        setInterval(function () {
+            h5.pageTo(i, arr[i])
+            i++
+            if (i > 7)i = 1;
+        }, 3000);
+//        h5.pageTo(1)
+//        setInterval(function () {
+//            h5.pageTo(1)
+//        }, 4000)
+
+    })
+</script>
+</body>
+</html>
