@@ -2,6 +2,41 @@
 document.addEventListener('touchstart', function () {
 }, false);
 var h5 = {}
+h5.loadCssImages = function () {
+	var imgs = [];
+	var k = 0;
+	var sheets = document.styleSheets;
+	for (var i = 0; i < sheets.length; i++) {
+		var cssPile = '';
+		var csshref = (sheets[i].href) ? sheets[i].href : 'window.location.href';
+		var baseURLarr = csshref.split('/');
+		baseURLarr.pop();
+		var baseURL = baseURLarr.join('/');
+		if (baseURL != "")baseURL += '/';
+
+		if (document.styleSheets[i].cssRules) {
+			var thisSheetRules = document.styleSheets[i].cssRules;
+			for (var j = 0; j < thisSheetRules.length; j++) {
+				cssPile += thisSheetRules[j].cssText
+			}
+		} else {
+			cssPile += document.styleSheets[i].cssText
+		}
+
+		var imgUrls = cssPile.match(/[^(]+.(gif|jpg|jpeg|png)/g);
+		if (imgUrls != null && imgUrls.length > 0 && imgUrls != '') {
+			var arr = jQuery.makeArray(imgUrls);
+			jQuery(arr).each(function () {
+				if (!/^data\:image/.test(this)) {
+					imgs[k] = new Image();
+					imgs[k].src = (this[0] == '/' || this.match('http://') || this.match('https://')) ? this : baseURL + this;
+					k++
+				}
+			})
+		}
+	}
+	return imgs
+}
 h5.animate = function (elements, option) {
 	$(elements).css({'-webkit-animation': 'none', 'display': 'none'});
 	$(elements).each(function () {
@@ -31,6 +66,7 @@ h5.animate = function (elements, option) {
 			if (typeof this_option.animationEnd == 'function') {
 				this_option.animationEnd(e)
 			}
+			return false
 		})
 
 	})
@@ -43,8 +79,8 @@ h5.animate = function (elements, option) {
  h5.pageTo(1, ['fadeOut', 'fadeIn'],pageInEndCallback);
 
  h5.pageTo(1, ['fadeOut', {
- 	animation: 'slideInDown',
- 	duration: 600
+ animation: 'slideInDown',
+ duration: 600
  }],pageInEndCallback);
 
  */
@@ -64,7 +100,6 @@ h5.pageTo = function (pageId, animations, onPageInComplete) {
 		animationEnd: function () {
 			$current._pageAnimateActive = false;
 			$current.removeClass("h5-page-out");
-			$current.removeClass("current");
 			$current.trigger("pageOutEnd");
 		}
 	};
@@ -74,14 +109,8 @@ h5.pageTo = function (pageId, animations, onPageInComplete) {
 			$to._pageAnimateActive = false;
 			$to.addClass("current");
 			$to.removeClass("h5-page-in");
-
-			$("html").attr("data-page-current", $to.data("page"))
 			$("[data-pages]").attr("data-current", $to.data("page"))
 			$to.trigger("pageInEnd");
-
-			if ($to.attr("data-page-height") == 'auto') {
-				$("html").addClass("page-height-auto ");
-			}
 			onPageInComplete && onPageInComplete($to);
 		}
 	};
@@ -108,11 +137,11 @@ h5.pageTo = function (pageId, animations, onPageInComplete) {
 	if (typeof animations == 'function') {
 		onPageInComplete = animations;
 	}
-	$("html").removeClass("page-height-auto");
 	if ($current.size()) {
 		$current._pageAnimateActive = true;
 		$current.trigger("pageOutStart");
 		$current.addClass("h5-page-out");
+		$current.removeClass("current");
 		h5.animate($current, outOption);
 	}
 	$to._pageAnimateActive = true;
